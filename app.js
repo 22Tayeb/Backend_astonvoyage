@@ -43,7 +43,8 @@ app.use('/api/post/', RouterPost.updatePostById);
 
 app.use('/api/post/', RouterPost.likedPost)
 
-app.listen(3000, () => {
-    console.log('server is running at localhost 3000');
+app.get('/', (req,res) => {
+    
+    res.send('Bienvenue sur le backend de Eleve-app.');
 });
 
