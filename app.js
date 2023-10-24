@@ -6,7 +6,7 @@ import { RouterPost } from './router/post.router.js';
 import cors  from "cors";
 
 const app = express();
-
+const port = 3000;
 const corsOptions = {
     origin: '*',
     credentials: true,
@@ -43,8 +43,11 @@ app.use('/api/post/', RouterPost.updatePostById);
 
 app.use('/api/post/', RouterPost.likedPost)
 
-app.get('/', (req,res) => {
-    
-    res.send('Bienvenue sur le backend de Eleve-app.');
+app.get("/", (req,res) => {
+    res.send('Bienvenue sur le backend de Together.');
+});
+
+app.listen(port, () => {
+  console.log( `Serveur démarré sur le port ${port}`);
 });
 
