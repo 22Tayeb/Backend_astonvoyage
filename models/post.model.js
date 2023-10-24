@@ -1,25 +1,27 @@
 import mongoose from 'mongoose';
 
+
+
 const post = mongoose.Schema({
-    userId :{
-        type: Number,
+    author :{
+        type: Object,
         required: true 
     },
     description :{
         type: String,
         required: true 
     },
-    image :{
+    imageUrl :{
         type: String,
         required: false 
     },
     like :{
-        type: Number,
+        type: Array,
         required: true 
     },
-    date:{
-        type: String,
-        required: false 
+    createdPost:{
+        type: Date,
+        required: true 
     }
 });
 

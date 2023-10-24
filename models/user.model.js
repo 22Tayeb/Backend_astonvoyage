@@ -5,6 +5,10 @@ const prod = mongoose.Schema({
         type: String,
         required: true 
     },
+    departement :{
+        type: String,
+        required:true
+    },
     nom :{
         type: String,
         required: true 

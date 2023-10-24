@@ -1,13 +1,21 @@
 import  Post  from "../models/post.model.js";
+import { getCurrentUser } from "../services/user.service.js";
+
 
 export const createPostCtrl = async (req,res)=>{
-    console.log(req.body)
-    const p = new Post(req.body)
+    req.body.like = []
+    req.body.author = getCurrentUser()
+    req.body.createdPost= new Date()
+
+    console.log(req.body);
+    const post = new Post(req.body)
    
     try {
-        const response = await p.save()
+        const response = await post.save()
         res.status(201).json({response})
-    } catch(e) {
+    } catch(e) {    
+        console.log(e)
+        
         res.status(500).send(e)
     }
 }
@@ -19,11 +27,25 @@ export const getPostsCtrl = async (req,res)=>{
         res.status(500).send(error)
     }   
 }
+
 export const getPostByIdCtrl = async (req,res)=>{
     try{
         const id =  req.params.id
+        console.log(id);
         const response = await Post.findById(id)
         res.status(200).json({response})
+    } catch(error){
+        res.status(500).send(error)
+    }   
+}
+export const updatePostByIdCtrl = async (req,res)=>{
+    try{
+        const body = req.body;
+        const filter = { _id: req.params.id }
+        console.log(body, filter);
+        const response = await Post.findOneAndUpdate(filter, body);
+        console.log(response)
+        res.status(200).json({response:'Mise a jour effectué!'})
     } catch(error){
         res.status(500).send(error)
     }   
@@ -37,4 +59,23 @@ export const deletePostCtrl = async (req,res)=>{
     } catch(error){
         res.status(500).send(error)
     }
+}
+
+export const likePostCtrl = async (req,res)=>{
+
+    const finduser = req.body.like.find((user) => user.mail === getCurrentUser().mail) 
+    if(finduser){
+        req.body.like = req.body.like.filter((user) => user.mail !== getCurrentUser().mail)
+    } else {
+        req.body.like.push(getCurrentUser())
+    }
+    try {
+        const body = req.body
+        const filter = {_id: req.params.id }
+        const response = await Post.findOneAndUpdate(filter,req.body);
+        res.status(200).json(body)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+
 }
