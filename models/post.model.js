@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
-
-
+// Model of my document for my MangoDB BDD
 const post = mongoose.Schema({
     author :{
         type: Object,

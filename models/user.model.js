@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Model of my document for my MangoDB BDD
 const prod = mongoose.Schema({
     role :{
         type: String,

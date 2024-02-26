@@ -1,13 +1,12 @@
 import  Post  from "../models/post.model.js";
 import { getCurrentUser } from "../services/user.service.js";
 
-
+// function post create 
 export const createPostCtrl = async (req,res)=>{
     req.body.like = []
     req.body.author = getCurrentUser()
     req.body.createdPost= new Date()
 
-    console.log(req.body);
     const post = new Post(req.body)
    
     try {
@@ -19,6 +18,7 @@ export const createPostCtrl = async (req,res)=>{
         res.status(500).send(e)
     }
 }
+// function get posts
 export const getPostsCtrl = async (req,res)=>{
     try{
         const response = await Post.find()
@@ -27,7 +27,7 @@ export const getPostsCtrl = async (req,res)=>{
         res.status(500).send(error)
     }   
 }
-
+// function get post by his id 
 export const getPostByIdCtrl = async (req,res)=>{
     try{
         const id =  req.params.id
@@ -38,6 +38,7 @@ export const getPostByIdCtrl = async (req,res)=>{
         res.status(500).send(error)
     }   
 }
+// function udpate post by his id
 export const updatePostByIdCtrl = async (req,res)=>{
     try{
         const body = req.body;
@@ -50,7 +51,7 @@ export const updatePostByIdCtrl = async (req,res)=>{
         res.status(500).send(error)
     }   
 }
-
+// function delate post
 export const deletePostCtrl = async (req,res)=>{
     try{
         const id = req.params.id 
@@ -60,7 +61,7 @@ export const deletePostCtrl = async (req,res)=>{
         res.status(500).send(error)
     }
 }
-
+// function like post 
 export const likePostCtrl = async (req,res)=>{
 
     const finduser = req.body.like.find((user) => user.mail === getCurrentUser().mail) 

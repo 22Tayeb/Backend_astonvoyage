@@ -6,17 +6,18 @@ import { deletePostCtrl } from "../controllers/post.controller.js";
 import { updatePostByIdCtrl } from "../controllers/post.controller.js";
 import { authenticate } from "../middlewares/authenticate.js";
 
-
-
+// Methode from express 
 const router = express.Router();
-
-const createPost = router.post('/', createPostCtrl)
-const getPosts = router.get('/', getPostsCtrl )
-const getPostById = router.get('/:id',getPostByIdCtrl )
-const deletePost= router.delete('/:id',deletePostCtrl )
-const updatePostById = router.put('/:id',updatePostByIdCtrl )
+// API of creation with middlewares
+const createPost = router.post('/',authenticate,createPostCtrl)
+// API of navigation with middlewares 
+const getPosts = router.get('/', authenticate,getPostsCtrl )
+const getPostById = router.get('/:id',authenticate,getPostByIdCtrl )
+const deletePost= router.delete('/:id',authenticate,deletePostCtrl )
+const updatePostById = router.put('/:id',authenticate,updatePostByIdCtrl )
 const likedPost = router.put('/like/:id',authenticate,likePostCtrl)
 
+// export 
 export const RouterPost = {
     createPost,
     getPosts,
