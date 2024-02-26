@@ -61,6 +61,7 @@ export const deletePostCtrl = async (req,res)=>{
         res.status(500).send(error)
     }
 }
+
 // function like post 
 export const likePostCtrl = async (req,res)=>{
 
