@@ -22,6 +22,7 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     next();
 });
+app.UseHttpsRedirection()
 
 // conection to my BDD
 mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@cluster.sr3t8lf.mongodb.net/social_network?retryWrites=true&w=majority&appName=Cluster',{
