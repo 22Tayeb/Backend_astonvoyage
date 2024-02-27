@@ -17,12 +17,12 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Headers', true);
+    res.header('Access-Control-Allow-Headers', "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     next();
+    
 });
-app.UseHttpsRedirection()
 
 // conection to my BDD
 mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@cluster.sr3t8lf.mongodb.net/social_network?retryWrites=true&w=majority&appName=Cluster',{
