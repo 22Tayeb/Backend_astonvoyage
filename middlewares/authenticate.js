@@ -7,7 +7,7 @@ export const authenticate = (req,res,next)=>{
     if(!token){
         return res.status(401).json({message :'token non fourni'});
     }
-    jsonwebtoken.verify(token.split(' ')[1], process.env.TOKEN_SECRET, (err,decoded)=>{
+    jsonwebtoken.verify(token.split(' ')[1], "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", (err,decoded)=>{
         if(err){
             return res.status(401).json({message :'token non valid'});
         } 
