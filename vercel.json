@@ -1,5 +1,13 @@
 {
-   "headers": [
+   "version": 3,
+    "name": "together-app",
+    "builds": [
+       { "src": "app.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+       { "src": "/(.*)", "dest": "/app.js" }
+    ],
+    "headers": [
      {
        "source": "/api/(.*)",
        "headers": [
@@ -9,15 +17,7 @@
          { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
        ]
      }
-   ],
+   ]
    
-   "version": 2,
-    "name": "together-app",
-    "builds": [
-       { "src": "app.js", "use": "@vercel/node" }
-    ],
-    "routes": [
-       { "src": "/(.*)", "dest": "/app.js" }
-    ]
  }
  
