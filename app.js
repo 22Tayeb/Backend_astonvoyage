@@ -24,8 +24,9 @@ app.use(function (req, res, next) {
     
 });
 
+
 // conection to my BDD
-mongoose.connect('mongodb+srv://toto:toto123@cluster.sr3t8lf.mongodb.net/social_network?retryWrites=true&w=majority&appName=Cluster',{
+mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@cluster.sr3t8lf.mongodb.net/social_network?retryWrites=true&w=majority&appName=Cluster',{
     useNewUrlParser: true, useUnifiedTopology: true
 }).then(()=>{
     console.log('Connexion réussi à MangoDB');
@@ -50,6 +51,6 @@ app.get("/", (req,res) => {
 
 // Acces serveur 
 app.listen(process.env.PORT, () => {
-  console.log( `Serveur démarré sur le port ${3000}`);
+  console.log( `Serveur démarré sur le port ${process.env.PORT}`);
 });
 
