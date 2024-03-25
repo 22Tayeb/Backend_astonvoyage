@@ -13,7 +13,7 @@ export const createUserCtrl = async (req,res)=>{
     try {
        let userHash = await bcrypt.hash(u.mdp, saltRounds)
        console.log(userHash);
-       u.mdp = userHash
+       u.mdp = userHash  //stock  le mdp hasher dans le mdp
     try{
         const response = await u.save()
         res.status(201).json({response})
@@ -49,4 +49,9 @@ export const authenticateCtrl = async (req,res)=> {
         console.log("erreur",err);
         res.status(401).json({erreur:"cet utilisateur n'existe pas"})
     }
+}
+
+export const getUsr = async (req,res) => {
+    const user = await User.findOne({nom:'ziyech'});
+    res.status(200).json(user)
 }

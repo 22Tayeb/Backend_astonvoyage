@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import bodyParser  from "body-parser";
 import { RouterUser } from "./router/user.router.js";
 import { RouterPost } from './router/post.router.js';
+import { RouterDest } from './router/destination.router.js';
 import cors  from "cors";
 import { config as dotenvConfig } from 'dotenv';
 dotenvConfig({path: './config/.env'})
@@ -25,18 +26,22 @@ app.use(function (req, res, next) {
 });
 
 
-// conection to my BDD
-mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@cluster.sr3t8lf.mongodb.net/social_network?retryWrites=true&w=majority&appName=Cluster',{
+//conection to my BDD
+mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@astonvoyage.re5jhkv.mongodb.net/?retryWrites=true&w=majority&appName=AstonVoyage',{
     useNewUrlParser: true, useUnifiedTopology: true
 }).then(()=>{
     console.log('Connexion réussi à MangoDB');
 }).catch((err) => console.log("failed to connect to MangoDB" ,err));
 
 
+
 app.use(bodyParser.json());
 // API USER
 app.use('/api/user/', RouterUser.createUsr);
-app.use('/api/user/', RouterUser.authenticateUser);
+//app.use('/api/user/', RouterUser.authenticateUser);
+
+// API DESTINATION
+app.use('/api/destination/', RouterDest.createDestination);
 // API POST
 app.use('/api/post/', RouterPost.createPost);
 app.use('/api/post/', RouterPost.getPosts);
@@ -46,11 +51,16 @@ app.use('/api/post/', RouterPost.updatePostById);
 app.use('/api/post/', RouterPost.likedPost)
 
 app.get("/", (req,res) => {
-    res.send('Bienvenue sur le backend de Together.');
+    res.send('Bienvenue sur le backend de AstonVoyage');
 });
+
+//ouvrir la route /api/home pour afficher ce texte
+// app.get("/api/home", (req,res) => {
+//     res.send("Bienvenue sur la page principal d'AstonVoyage");
+// });
 
 // Acces serveur 
 app.listen(process.env.PORT, () => {
-  console.log( `Serveur démarré sur le port ${process.env.PORT}`);
+  console.log( `Serveur démarré sur le port ${process.env.PORT} -> https:\\localhost:${process.env.PORT}` );
 });
 
