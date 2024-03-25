@@ -42,3 +42,12 @@ export const updateDest = async (req,res)=>{
     }   
 }
 
+export const deleteDest = async (req,res)=>{
+    try{
+        const id = req.params.id 
+        const response = await Destination.findByIdAndRemove(id)
+        res.status(200).json({succes : "la déstination avec l'id ->" + response.id  + " a bien été supprimé!!!"})
+    } catch(error){
+        res.status(500).send(error)
+    }
+}
