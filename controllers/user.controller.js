@@ -16,7 +16,7 @@ export const createUserCtrl = async (req,res)=>{
        u.mdp = userHash  //stock  le mdp hasher dans le mdp
     try{
         const response = await u.save()
-        res.status(201).json({response})
+        res.status(201).json({response,message: 'Utilisateur crée'})
     }catch(err){
         res.status(500).json({erreur:"création impossible"})
     }
@@ -52,6 +52,6 @@ export const authenticateCtrl = async (req,res)=> {
 }
 
 export const getUsr = async (req,res) => {
-    const user = await User.findOne({nom:'ziyech'});
+    const user = await User.find({});
     res.status(200).json(user)
 }
