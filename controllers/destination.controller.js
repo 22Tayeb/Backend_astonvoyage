@@ -32,13 +32,17 @@ export const getAllDest = async (req,res) => {
 export const updateDest = async (req,res)=>{
     try{
         const body = req.body;
-        const filter = { _id: req.params.id }
-        console.log(body, filter);
-        const response = await Destination.findOneAndUpdate(filter, body).populate('vols');
-        console.log(response)
+        const id = req.params.id;
+        const vols = new Vols(req.body.vols);
+
+        const responseVols = await Vols.findByIdAndUpdate(vols._id, vols);
+
+        const response = await Destination.findByIdAndUpdate(id, body);
+
+        console.log(body)
         res.status(200).json({response:'Mise a jour effectué!'})
     } catch(error){
-        res.status(500).send(error)
+        res.status(500).send({error:"Erreur lors de l'update de la destination",error})
     }   
 }
 
@@ -51,3 +55,5 @@ export const deleteDest = async (req,res)=>{
         res.status(500).send(error)
     }
 }
+
+
