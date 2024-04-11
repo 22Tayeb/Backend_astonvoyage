@@ -8,6 +8,7 @@ import cors  from "cors";
 import { config as dotenvConfig } from 'dotenv';
 import path,{dirname} from 'path';
 import { fileURLToPath } from 'url';
+import helmet from 'helmet'
 
 dotenvConfig({path: './config/.env'})
 
@@ -17,8 +18,37 @@ const app = express();
 const corsOptions = {
     origin: '*',
     credentials: true,
-    optionSuccessStatus: 200
+    optionSuccessStatus: 200,
+    
 }
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "defaultSrc": ["http://localhost:4200"],
+        "imgSrc": ["http://localhost:4200"],
+      },
+      
+    },
+    crossOriginResourcePolicy: {policy:'same-site'}
+  }),
+);
+app.use(cors(corsOptions));
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Headers',"Origin, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+   // res.header('Content-Security-Policy', "default-src 'self'")
+    next()
+});
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname =path.dirname(__filename);
+console.log(__dirname)
+app.use(express.static(path.join(__dirname, 'uploads')));
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -31,15 +61,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 //config multer
 
-app.use(cors(corsOptions));
-app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Headers', "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    next();
-    
-});
+
 
 
 
@@ -72,9 +94,19 @@ app.get('/api/destination/download/:filename', (req,res) => {
         }
     });
 });
-app.post('/api/destination/upload', upload.single('file'), (req, res) => {
+app.post('/api/destination/upload', upload.single('file'), (req,res,) => {
   // ... gérer le fichier reçu ici ...
-  res.status(200).send('')
+
+  
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+
+    
+    const filePath = `https://localhost:${process.env.PORT}/uploads/${req.file.originalname}`
+    
+    
+   
+    
+  res.status(200).send(filePath)
 });
 
 
@@ -86,6 +118,6 @@ app.get("/", (req,res) => {
 
 // Acces serveur 
 app.listen(process.env.PORT, () => {
-  console.log( `Serveur démarré sur le port ${process.env.PORT} -> https:\\localhost:${process.env.PORT}` );
+  console.log( `Serveur démarré sur le port ${process.env.PORT} -> http:\\localhost:${process.env.PORT}` );
 });
 
