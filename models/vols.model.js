@@ -18,6 +18,14 @@ const vols = mongoose.Schema({
     heure_arrivee:{
         type:String,
         required:true
+    },
+    aeroport_depart:{
+        type:String,
+        required:true
+    },
+    aeroport_arrivee:{
+        type:String,
+        required:true
     }
 });
 
