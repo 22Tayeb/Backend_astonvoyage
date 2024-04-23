@@ -46,7 +46,6 @@ app.use(function (req, res, next) {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname =path.dirname(__filename);
-console.log(__dirname)
 app.use(express.static(path.join(__dirname, 'uploads')));
 
 const storage = multer.diskStorage({
@@ -97,16 +96,13 @@ app.get('/api/destination/download/:filename', (req,res) => {
 app.post('/api/destination/upload', upload.single('file'), (req,res,) => {
   // ... gérer le fichier reçu ici ...
 
-  
-  const __dirname = dirname(fileURLToPath(import.meta.url));
+  try {
+  const filePath = `http://localhost:${process.env.PORT}/${req.file.originalname}`  
+  res.status(200).send({url:filePath})
+  } catch(e) {
+    res.status(500).send('erreur' + e)
+  }
 
-    
-    const filePath = `https://localhost:${process.env.PORT}/uploads/${req.file.originalname}`
-    
-    
-   
-    
-  res.status(200).send(filePath)
 });
 
 
