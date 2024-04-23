@@ -9,6 +9,7 @@ import { config as dotenvConfig } from 'dotenv';
 import path,{dirname} from 'path';
 import { fileURLToPath } from 'url';
 import helmet from 'helmet'
+import { RouterBooking } from './router/booking-destination.router.js';
 
 dotenvConfig({path: './config/.env'})
 
@@ -111,6 +112,7 @@ app.post('/api/destination/upload', upload.single('file'), (req,res,) => {
 
 
 app.use('/api/destination/', RouterDest.createDestination);
+app.use('/api/booking/', RouterBooking.createBookingDest);
 
 app.get("/", (req,res) => {
     res.send('Bienvenue sur le backend de AstonVoyage');
