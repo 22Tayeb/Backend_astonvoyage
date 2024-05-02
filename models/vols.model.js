@@ -26,6 +26,14 @@ const vols = mongoose.Schema({
     aeroport_arrivee:{
         type:String,
         required:true
+    },
+    duree_vol:{
+       type:String,
+       required:true
+    },
+    info_comp:{
+        type:String,
+        required:true
     }
 });
 
