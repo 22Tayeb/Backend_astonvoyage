@@ -16,6 +16,18 @@ const destination = mongoose.Schema({
        type: String,
        required: true 
     },
+    date_depart:{
+        type: Date,
+        required: true
+    },
+    date_retour:{
+        type: Date,
+        required: true
+    },
+    prix:{
+        type : String,
+        required: true
+    },
     vols:{
         type : mongoose.Schema.Types.ObjectId,
         ref:'Vols',
