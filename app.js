@@ -108,6 +108,7 @@ app.post('/api/destination/upload', upload.single('file'), (req,res,) => {
 
 
 app.use('/api/destination/', RouterDest.createDestination);
+
 app.use('/api/booking/', RouterBooking.createBookingDest);
 
 app.get("/", (req,res) => {
