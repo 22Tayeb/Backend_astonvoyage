@@ -1,5 +1,5 @@
 import express from "express";
-import {createDest, getDest, getAllDest, updateDest, deleteDest} from "../controllers/destination.controller.js";
+import {createDest, getDest, getAllDest, updateDest, deleteDest,getAllDestByDate} from "../controllers/destination.controller.js";
 
 // Methode from express
 const router = express.Router();
@@ -10,6 +10,7 @@ const getDestination = router.get('/getDest/:id', getDest);
 const getAllDestination = router.get('/getAllDest', getAllDest);
 const updateDestination = router.put('/updateDest/:id', updateDest);
 const deleteDestination = router.delete('/deleteDest/:id', deleteDest);
+const getAllDestinationByDate=router.get('/getAllDestByDate',getAllDestByDate);
 
 // Export 
 export const RouterDest = {
@@ -17,5 +18,6 @@ export const RouterDest = {
     getDestination,
     getAllDestination,
     updateDestination,
-    deleteDestination
+    deleteDestination,
+    getAllDestinationByDate
 }
