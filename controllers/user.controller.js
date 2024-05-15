@@ -35,11 +35,12 @@ export const authenticateCtrl = async (req,res)=> {
         console.error("1",user)
         bcrypt.compare(mdp, user.mdp, function(err, result) {
            console.error("2", err, result)
+           console.log("result", result);
+
             if(err || result == false){
                 res.status(401).json({erreur:"Mot de passe ou utilisateur incorect"})
                 return
             }
-            console.log("result", result);
             const accessToken = jsonwebtoken.sign({ userId: user._id }, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", { expiresIn: '1d' });
             const refreshToken = jsonwebtoken.sign({ userId: user._id }, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", { expiresIn: '7d' });
             res.status(200).json({user,accessToken, refreshToken})
