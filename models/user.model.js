@@ -12,7 +12,8 @@ const prod = mongoose.Schema({
     },
     mail :{
         type: String,
-        required: true 
+        required: true,
+        unique:true 
     },
     mdp:{
         type: String,

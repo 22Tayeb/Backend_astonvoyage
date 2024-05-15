@@ -19,13 +19,17 @@ export const getAllBookByUser = async (req, res) => {
 }
 export const createMyBooking = async (req, res) => {
     //console.log(req.body)
+    try {
+    if(!req.body.userId||!req.body.destinationId){
+        throw('pas id recu')
+    }
     const userId = new mongoose.Types.ObjectId(req.body.userId)
     const destinationId = new mongoose.Types.ObjectId(req.body.destinationId)
     const myBooking = new bookingdestination({ userId, destinationId }) //{userId:4355435, destinationId:3555355}
-    try {
+    
         const response = await myBooking.save()
         res.status(201).json({ response, message: 'Booking réservé, paiement accepte' })
     } catch (err) {
-        res.status(500).json({ erreur: "Booking non réservé, paiement refuse" })
+        res.status(500).json({ erreur: "Booking non réservé, paiement refuse", err })
     }
 }
