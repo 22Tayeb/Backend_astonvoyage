@@ -23,7 +23,7 @@ export const createDest = async (req, res) => {
 export const getDest = async (req, res) => {
     const id = req.params.id
     const destination = await Destination.findById(id).populate('vols').exec();
-    res.status(200).json(destination)
+    res.status(200).json(destination);
 }
 
 export const getAllDest = async (req, res) => {

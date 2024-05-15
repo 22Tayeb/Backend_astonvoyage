@@ -98,8 +98,8 @@ app.post('/api/destination/upload', upload.single('file'), (req,res,) => {
   // ... gérer le fichier reçu ici ...
 
   try {
-  const filePath = `http://localhost:${process.env.PORT}/${req.file.originalname}`;  
-  res.status(200).send({filename:req.file.originalname});
+    const filePath = `http://localhost:${process.env.PORT}/${req.file.originalname}`  
+    res.status(200).send({url:filePath})
   } catch(e) {
     res.status(500).send('erreur' + e);
   }
