@@ -11,7 +11,10 @@ export const getAllBook = async (req, res) => {
 export const getAllBookByUser = async (req, res) => {
     const userId = req.params.userId;
     try {
-        const books = await bookingdestination.find({ userId }).populate('destinationId').exec();
+        let books = await bookingdestination.find({ userId }).populate('destinationId').exec();
+        //temporaire
+
+        books = books.filter((el)=> el.destinationId)
         res.status(200).json(books)
     } catch (e) {
         res.status(500).json(e)
