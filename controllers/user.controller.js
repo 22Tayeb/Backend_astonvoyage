@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-import { setCurrentUser } from "../services/user.service.js";
+import { getCurrentUser, setCurrentUser } from "../services/user.service.js";
 import  jsonwebtoken  from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -55,4 +55,14 @@ export const authenticateCtrl = async (req,res)=> {
 export const getUsr = async (req,res) => {
     const user = await User.find({});
     res.status(200).json(user)
+}
+
+export const logoutUserCtrl = async (req,res)=>{
+    setCurrentUser(null)
+    if(getCurrentUser()==null){
+        req.status(500).json({message:'session utilisateur toujours actif'})
+        
+    }else{
+        res.status(200).json({message:'session utlisateur supprimé avec succès'})
+    }
 }

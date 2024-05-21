@@ -10,6 +10,7 @@ import path,{dirname} from 'path';
 import { fileURLToPath } from 'url';
 import helmet from 'helmet'
 import { RouterBooking } from './router/booking-destination.router.js';
+import { RouterAdmin } from './router/admin.route.js';
 
 dotenvConfig({path: './config/.env'})
 
@@ -77,6 +78,8 @@ app.use(bodyParser.json());
 app.use('/api/user/', RouterUser.createUsr);
 //app.use('/api/user/', RouterUser.authenticateUser);
 
+//API ADMIN
+app.use('/api/admin/', RouterAdmin.createAdmin);
 // API DESTINATION
 app.get('/api/destination/download/:filename', (req,res) => {
     const fileName = req.params.filename;
