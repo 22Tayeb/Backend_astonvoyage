@@ -50,6 +50,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname =path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'uploads')));
 
+const fileFilter = (req, file, cb) => {
+  // Accepter uniquement les fichiers .jpeg ou .png
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true);
+  } else {
+    cb(new Error('Type de fichier non supporté'), false);
+  }
+};
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -59,7 +68,7 @@ const storage = multer.diskStorage({
   }
 })
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage , fileFilter:fileFilter})
 //config multer
 
 

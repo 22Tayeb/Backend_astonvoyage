@@ -25,7 +25,7 @@ const destination = mongoose.Schema({
         required: true
     },
     prix:{
-        type : String,
+        type : Number,
         required: true
     },
     vols:{
