@@ -47,7 +47,7 @@ app.use(function (req, res, next) {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname =path.dirname(__filename);
-app.use(express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'tmp')));
 
 const fileFilter = (req, file, cb) => {
   // Accepter uniquement les fichiers .jpeg ou .png
@@ -60,7 +60,7 @@ const fileFilter = (req, file, cb) => {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+    cb(null, 'tmp/')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
