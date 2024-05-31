@@ -47,8 +47,7 @@ app.use(function (req, res, next) {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname =path.dirname(__filename);
-app.use(express.static(path.join(__dirname, 'tmp')));
-
+app.use(express.static(path.join(process.cwd(), 'tmp')));
 const fileFilter = (req, file, cb) => {
   // Accepter uniquement les fichiers .jpeg ou .png
   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
