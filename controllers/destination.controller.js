@@ -1,5 +1,6 @@
 import Destination from "../models/destination.model.js";
 import Vols from "../models/vols.model.js";
+import File from "./../models/file.model.js";
 
 // function create destination
 export const createDest = async (req, res) => {
@@ -51,10 +52,13 @@ export const updateDest = async (req, res) => {
 export const deleteDest = async (req, res) => {
     try {
         const id = req.params.id
-        const response = await Destination.findByIdAndRemove(id)
-        res.status(200).json({ succes: "la déstination avec l'id ->" + response.id + " a bien été supprimé!!!" })
+
+        const destination = await Destination.findByIdAndRemove(id)
+        const image = await File.findOneAndDelete({ filename: destination.file })
+        console.log(image)
+        res.status(200).json({ succes: "la déstination avec l'id ->" + destination.id + " a bien été supprimé!!!" })
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send(error);
     }
 
 }
