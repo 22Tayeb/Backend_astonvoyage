@@ -31,7 +31,7 @@ app.use(
       },
       
     },
-    crossOriginResourcePolicy: {policy:'same-site'}
+    crossOriginResourcePolicy: {policy:'cross-origin'}
   }),
 );
 app.use(cors(corsOptions));
@@ -40,7 +40,6 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Headers',"Origin, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-   // res.header('Content-Security-Policy', "default-src 'self'")
     next()
 });
 
