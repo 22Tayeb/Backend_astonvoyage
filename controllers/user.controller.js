@@ -60,9 +60,8 @@ export const getUsr = async (req,res) => {
 export const logoutUserCtrl = async (req,res)=>{
     setCurrentUser(null)
     if(getCurrentUser()==null){
-        req.status(500).json({message:'session utilisateur toujours actif'})
-        
-    }else{
         res.status(200).json({message:'session utlisateur supprimé avec succès'})
+    }else{
+        req.status(500).json({message:'session utilisateur toujours actif'})
     }
 }
