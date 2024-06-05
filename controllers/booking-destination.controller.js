@@ -2,7 +2,7 @@ import bookingdestination from "../models/booking-destination.model.js";
 import mongoose from 'mongoose';
 
 
-
+//recupere tout les booking
 export const getAllBook = async (req, res) => {
     const allbooking = await bookingdestination.find({});
     res.status(200).json(allbooking)
@@ -11,6 +11,7 @@ export const getAllBook = async (req, res) => {
 export const getAllBookByUser = async (req, res) => {
     const userId = req.params.userId;
     try {
+        //sert a récupérer les userId dans le bookingDestination et recupere les destination Id
         let books = await bookingdestination.find({ userId }).populate('destinationId').exec();
         //temporaire
 

@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-import { setCurrentUser } from "../services/user.service.js";
+import { getCurrentUser, setCurrentUser } from "../services/user.service.js";
 import  jsonwebtoken  from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -57,7 +57,11 @@ export const getUsr = async (req,res) => {
     res.status(200).json(user)
 }
 
-export const logoutUserCtrl = async(req,res) => {
-    setCurrentUser(null);
-    res.status(200).json({message:'utilisateur deconnecte'})
+export const logoutUserCtrl = async (req,res)=>{
+    setCurrentUser(null)
+    if(getCurrentUser()==null){
+        res.status(200).json({message:'session utlisateur supprimé avec succès'})
+    }else{
+        req.status(500).json({message:'session utilisateur toujours actif'})
+    }
 }

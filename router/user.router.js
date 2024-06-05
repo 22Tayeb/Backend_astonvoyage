@@ -1,5 +1,5 @@
 import express from "express";
-import {createUserCtrl, authenticateCtrl, getUsr, logoutUserCtrl} from "../controllers/user.controller.js";
+import {createUserCtrl, authenticateCtrl, getUsr,logoutUserCtrl} from "../controllers/user.controller.js";
 
 // Methode from express
 const router = express.Router();
@@ -8,8 +8,7 @@ const router = express.Router();
 const createUsr = router.post('/',createUserCtrl);
 const authenticateUser = router.post('/authenticate', authenticateCtrl);
 const getUser = router.get('/getUsr', getUsr);
-const logoutUser = router.post('/logoutUser',logoutUserCtrl);
-
+const logoutUser = router.post('/logoutUser',logoutUserCtrl)
 
 // Export 
 export const RouterUser = {

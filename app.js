@@ -8,6 +8,7 @@ import cors  from "cors";
 import { config as dotenvConfig } from 'dotenv';
 import helmet from 'helmet';
 import { RouterBooking } from './router/booking-destination.router.js';
+import { RouterAdmin } from './router/admin.route.js';
 import  File from './models/file.model.js';
 
 
@@ -71,6 +72,8 @@ app.use(bodyParser.json());
 app.use('/api/user/', RouterUser.createUsr);
 app.use('/api/user/', RouterUser.authenticateUser);
 
+//API ADMIN
+app.use('/api/admin/', RouterAdmin.createAdmin);
 // API DESTINATION
 app.get('/api/destination/download/:filename', async (req,res) => {
   try {
