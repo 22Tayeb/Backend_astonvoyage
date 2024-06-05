@@ -8,7 +8,7 @@ const router = express.Router();
 // API pour creer un administrateur
 const createAdmin = router.post('/createAdmin',createAdminCtrl);
 const authenticateAdmin= router.post('/authenticateAdmin',authenticateCtrl)
-const logoutAdmin= router.post('/LogoutAdmin',logoutAdminCtrl)
+const logoutAdmin= router.post('/logoutAdmin',logoutAdminCtrl)
 
 
 
