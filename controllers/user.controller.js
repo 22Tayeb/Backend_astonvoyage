@@ -56,3 +56,8 @@ export const getUsr = async (req,res) => {
     const user = await User.find({});
     res.status(200).json(user)
 }
+
+export const logoutUserCtrl = async(req,res) => {
+    setCurrentUser(null);
+    res.status(200).json({message:'utilisateur deconnecte'})
+}
