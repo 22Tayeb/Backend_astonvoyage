@@ -27,10 +27,6 @@ const vols = mongoose.Schema({
         type:String,
         required:true
     },
-    duree_vol:{
-       type:Number,
-       required:true
-    },
     info_comp:{
         type:String,
         required:true
