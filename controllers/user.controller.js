@@ -32,17 +32,15 @@ export const authenticateCtrl = async (req,res)=> {
     // bcrypt authentification 
     try {
         const user = await User.findOne({mail });
-        console.error("1",user)
         bcrypt.compare(mdp, user.mdp, function(err, result) {
-           console.error("2", err, result)
            console.log("result", result);
 
             if(err || result == false){
                 res.status(401).json({erreur:"Mot de passe ou utilisateur incorect"})
                 return
             }
-            const accessToken = jsonwebtoken.sign({ userId: user._id }, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", { expiresIn: '1d' });
-            const refreshToken = jsonwebtoken.sign({ userId: user._id }, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", { expiresIn: '7d' });
+            const accessToken = jsonwebtoken.sign({ userId: user._id }, process.env.SECRET_JWT, { expiresIn: '1d' });
+            const refreshToken = jsonwebtoken.sign({ userId: user._id }, process.env.SECRET_JWT, { expiresIn: '7d' });
             res.status(200).json({user,accessToken, refreshToken})
         })
         setCurrentUser(user)
