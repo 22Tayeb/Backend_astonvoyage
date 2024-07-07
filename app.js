@@ -10,6 +10,7 @@ import helmet from 'helmet';
 import { RouterBooking } from './router/booking-destination.router.js';
 import { RouterAdmin } from './router/admin.route.js';
 import  File from './models/file.model.js';
+import { RouterCars } from './router/cars.route.js';
 
 
 dotenvConfig({path: './config/.env'});
@@ -88,6 +89,8 @@ app.get('/api/destination/download/:filename', async (req,res) => {
     res.status(500).json({ message: 'Error retrieving file', error });
   }
 });
+//API CARS
+app.use('/api/cars/', RouterCars.createCars);
 
 app.post('/api/destination/upload', upload.single('file'), async (req,res,) => {
   const { originalname, mimetype, buffer } = req.file;
